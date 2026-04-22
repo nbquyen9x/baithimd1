@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Quan Ly Dien Thoai</title>
+  <style>
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid black; padding: 10px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    button { padding: 5px 15px; cursor: pointer; margin-right: 5px; }
+    .btn-add { padding: 10px 20px; margin-bottom: 10px; background-color: #4CAF50; color: white; border: none; }
+    .btn-edit { background-color: #FFC107; border: none; }
+    .btn-delete { background-color: #f44336; color: white; border: none; }
+  </style>
+</head>
+<body>
+
+<h2>Quản lý điện thoại</h2>
+<button class="btn-add" onclick="themMoi()">Thêm mới điện thoại</button>
+<div id="danhSach"></div>
+
+<script>
+  class DienThoai {
+    constructor(ma, ten, hang, gia) {
+      this.ma = ma;
+      this.ten = ten;
+      this.hang = hang;
+      this.gia = gia;
+    }
+    getMa() { return this.ma; }
+    setMa(ma) { this.ma = ma; }
+    getTen() { return this.ten; }
+    setTen(ten) { this.ten = ten; }
+    getHang() { return this.hang; }
+    setHang(hang) { this.hang = hang; }
+    getGia() { return this.gia; }
+    setGia(gia) { this.gia = gia; }
+  }
+
+  let ds = [
+    new DienThoai("DT01", "iPhone 15", "Apple", 25000),
+    new DienThoai("DT02", "Samsung S24", "Samsung", 22000)
+  ];
+
+  function hienThi() {
+    ds.sort((a, b) => a.getTen().localeCompare(b.getTen()));
+
+    let html = "<table>";
+    html += "<tr><th>Mã</th><th>Tên</th><th>Hãng</th><th>Giá</th><th>Hành động</th></tr>";
+    for (let i = 0; i < ds.length; i++) {
+      html += "<tr>";
+      html += "<td>" + ds[i].getMa() + "</td>";
+      html += "<td>" + ds[i].getTen() + "</td>";
+      html += "<td>" + ds[i].getHang() + "</td>";
+      html += "<td>" + ds[i].getGia() + "</td>";
+      html += "<td>" +
+              "<button class='btn-edit' onclick='suaDT(" + i + ")'>Sửa</button>" +
+              "<button class='btn-delete' onclick='xoaDT(" + i + ")'>Xóa</button>" +
+              "</td>";
+      html += "</tr>";
+    }
+    html += "</table>";
+    document.getElementById("danhSach").innerHTML = html;
+  }
+
+  function themMoi() {
+    let ma = prompt("Nhập mã ĐT:");
+    let ten = prompt("Nhập tên ĐT:");
+    let hang = prompt("Nhập hãng sản xuất:");
+    let gia = Number(prompt("Nhập giá:"));
+    if (ma && ten && hang && gia) {
+      ds.push(new DienThoai(ma, ten, hang, gia));
+      hienThi();
+    }
+  }
+
+  function suaDT(index) {
+    let dt = ds[index];
+    let tenMoi = prompt("Sửa tên:", dt.getTen());
+    let hangMoi = prompt("Sửa hãng:", dt.getHang());
+    let giaMoi = Number(prompt("Sửa giá:", dt.getGia()));
+
+    if (tenMoi && hangMoi && giaMoi) {
+      dt.setTen(tenMoi);
+      dt.setHang(hangMoi);
+      dt.setGia(giaMoi);
+      hienThi();
+    }
+  }
+
+  function xoaDT(index) {
+    if (confirm("Bạn có chắc muốn xóa điện thoại này?")) {
+      ds.splice(index, 1);
+      hienThi();
+    }
+  }
+
+  hienThi();
+</script>
+</body>
+</html>

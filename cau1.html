@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>câu 1</title>
+</head>
+<body>
+
+<script>
+    let n = parseInt(prompt("Nhập n:"));
+
+    if (n > 0 && n <= 20) {
+        let arr = [];
+        for (let i = 0; i < n; i++) {
+            arr[i] = parseInt(prompt("Nhập phần tử thứ " + (i + 1)));
+        }
+
+        document.write("Mảng: [" + arr + "] <br>");
+
+        let tongChan = 0;
+        let tongLe = 0;
+        let bieuThucChan = "";
+        let bieuThucLe = "";
+
+        for (let i = 0; i < arr.length; i++) {
+            if (arr[i] % 2 === 0) {
+                tongChan += arr[i];
+                bieuThucChan += (bieuThucChan === "" ? "" : "+") + arr[i];
+            } else {
+                tongLe += arr[i];
+                bieuThucLe += (bieuThucLe === "" ? "" : "+") + arr[i];
+            }
+        }
+
+        let ketQua = tongChan - tongLe;
+        document.write("Kết quả: (" + bieuThucChan + ") - (" + bieuThucLe + ") = " + ketQua);
+    } else {
+        alert("Số lượng phần tử không hợp lệ!");
+    }
+</script>
+
+
+</body>
+</html>

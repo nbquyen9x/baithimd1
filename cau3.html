@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>câu 3</title>
+</head>
+<body>
+
+
+<script>
+    function checkPrime(n) {
+        if (n < 2) return false;
+        for (let i = 2; i <= Math.sqrt(n); i++) {
+            if (n % i === 0) return false;
+        }
+        return true;
+    }
+
+    function findPrimes(arr) {
+        let result = [];
+        for (let i = 0; i < arr.length; i++) {
+            if (checkPrime(arr[i])) {
+                result.push(arr[i]);
+            }
+        }
+        result.sort(function(a, b) {
+            return a - b;
+        });
+        return result;
+    }
+
+    let numbers = [1, 5, 6, 23, 8, 47, 10, 3];
+    document.write(findPrimes(numbers));
+</script>
+
+
+</body>
+</html>
